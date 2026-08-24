@@ -2,13 +2,14 @@
   "name": "lab-requests-app",
   "private": true,
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "dev": "concurrently -n \"BACKEND,FRONTEND\" -c \"bgBlue.bold,bgCyan.bold\" \"npm --prefix backend run dev\" \"npm --prefix frontend run dev\"",
     "start": "concurrently -n \"BACKEND,FRONTEND\" -c \"bgBlue.bold,bgCyan.bold\" \"npm --prefix backend run dev\" \"npm --prefix frontend run dev\"",
     "server": "npm --prefix backend run dev",
     "backend": "npm --prefix backend run dev",
     "client": "npm --prefix frontend run dev",
-    "build": "cd frontend && npm install && npm run build",
+    "build": "node build.js",
     "seed": "npm --prefix backend run seed",
     "install:all": "npm install && npm --prefix backend install && npm --prefix frontend install"
   },
