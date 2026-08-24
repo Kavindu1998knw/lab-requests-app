@@ -37,10 +37,20 @@ app.use('/api/auth', authRoutes);
 app.use('/api/samples', sampleRoutes);
 app.get('/api/stats', getSampleStats);
 
+// Lazy Database Connection Middleware for Serverless
+app.use(async (_req, _res, next) => {
+  try {
+    await connectDatabase();
+  } catch (err) {
+    console.error('Lazy DB connection error:', err);
+  }
+  next();
+});
+
 // Centralized Error Handler
 app.use(errorHandler);
 
-// Start Server & Connect Database
+// Start Server locally if not running on Vercel
 const startServer = async () => {
   await connectDatabase();
   app.listen(port, '0.0.0.0', () => {
@@ -48,4 +58,8 @@ const startServer = async () => {
   });
 };
 
-startServer();
+if (!process.env.VERCEL) {
+  startServer();
+}
+
+export default app;
