@@ -22,6 +22,16 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
+// Database Connection Middleware for all incoming API calls (Serverless & Standard)
+app.use(async (_req, _res, next) => {
+  try {
+    await connectDatabase();
+  } catch (err) {
+    console.error('Database connection error in middleware:', err.message);
+  }
+  next();
+});
+
 // Health Check
 app.get('/api/health', (_req, res) => {
   res.json({
@@ -36,16 +46,6 @@ app.get('/api/health', (_req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/samples', sampleRoutes);
 app.get('/api/stats', getSampleStats);
-
-// Lazy Database Connection Middleware for Serverless
-app.use(async (_req, _res, next) => {
-  try {
-    await connectDatabase();
-  } catch (err) {
-    console.error('Lazy DB connection error:', err);
-  }
-  next();
-});
 
 // Centralized Error Handler
 app.use(errorHandler);
