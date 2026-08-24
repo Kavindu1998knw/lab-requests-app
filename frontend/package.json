@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "canvas-confetti": "^1.9.4",
-    "lab-requests-app": "file:..",
     "lucide-react": "^1.16.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
