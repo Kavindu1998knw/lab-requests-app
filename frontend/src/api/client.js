@@ -1,6 +1,4 @@
-// API client with seamless fallback to LocalStorage/Mock mode
-
-const API_BASE_URL = '/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
 export const TAX_MULTIPLIER = 1.210208; // SSCL (2.56%) cascading into VAT (18%)
 
